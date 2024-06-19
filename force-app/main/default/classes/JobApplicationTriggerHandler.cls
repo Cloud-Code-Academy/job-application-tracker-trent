@@ -88,7 +88,7 @@ public with sharing class JobApplicationTriggerHandler {
                     newTask.WhatId = JobApp.Id;
                     newTask.OwnerId = JobAPP.OwnerId;
                     newTask.Subject = subject;
-                    newTask.ActivityDate = date.Today().addDays(7);
+                    newTask.ActivityDate = date.Today().addDays(1);
                     newTask.Priority = 'High';
                     newTask.Description = newTask.Subject + ' ' + 'Due:' + ' ' +  newTask.ActivityDate;
 
