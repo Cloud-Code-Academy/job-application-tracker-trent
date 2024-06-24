@@ -4,7 +4,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 const SocialSecurityWithholding = 0.062;
 const MedicareWithholding = 0.0145;
 const FederalIncomeTaxRate = 0.176;
-const NumberOfPayPeriods = 26;
+const NumberOfPayPeriodsBiWeekly = 26;
 
 export default class TakeHomePayCalculator extends LightningElement {
     @api recordId; // This is automatically set to the ID of the current record
@@ -65,7 +65,39 @@ export default class TakeHomePayCalculator extends LightningElement {
 
 
     calculateTakeHomePay() {
-        let GrossTakeHomePayAmount = this.SalaryValue / NumberOfPayPeriods;
+
+        //Making a Variable called payPeriods with a switch statement, where the variable value changes based on what is selected
+        let payPeriods;
+        switch(this.selectedOption) {
+            case 'Daily':
+                payPeriods = 260; // Assuming 5-day work week
+                break;
+            case 'Weekly':
+                payPeriods = 52;
+                break;
+            case 'Bi-Weekly':
+                payPeriods = NumberOfPayPeriodsBiWeekly;
+                break;
+            case 'Semi-Monthly':
+                payPeriods = 24;
+                break;
+            case 'Monthly':
+                payPeriods = 12;
+                break;
+            case 'Quarterly':
+                payPeriods = 4;
+                break;
+            case 'Semi-Annually':
+                payPeriods = 2;
+                break;
+            case 'Annually':
+                payPeriods = 1;
+                break;
+            default:
+                payPeriods = NumberOfPayPeriodsBiWeekly; // Default to Bi-Weekly
+        }
+
+        let GrossTakeHomePayAmount = this.SalaryValue / payPeriods;
         let SocialSecurityAmount = GrossTakeHomePayAmount * SocialSecurityWithholding;
         let MedicareAmount = GrossTakeHomePayAmount * MedicareWithholding;
         let FederalTaxAmount = GrossTakeHomePayAmount * FederalIncomeTaxRate;
