@@ -7,28 +7,28 @@ private class CalendarValidationTest {
         // Create two events with the same start time
         Event testEvent1 = new Event(
             Subject = 'Test Event 1',
-            StartDateTime = commonStartTime,
-            EndDateTime = commonStartTime.addHours(1),
-            OwnerId = '005aj000004nGNtAAM'
-        );
+        StartDateTime = commonStartTime,
+        EndDateTime = commonStartTime.addHours(1),
+        OwnerId = '005aj000004nGNtAAM'
+            );
         insert testEvent1;
-
+        
         Test.startTest();
         //Create second event with the same start time
         Event testEvent2 = new Event(
             Subject = 'Test Event 2',
-            StartDateTime = commonStartTime,
-            EndDateTime = commonStartTime.addHours(1),
-            OwnerId = '005aj000004nGNtAAM'
-        );
-
+        StartDateTime = commonStartTime,
+        EndDateTime = commonStartTime.addHours(1),
+        OwnerId = '005aj000004nGNtAAM'
+            );
+        
         String errorMessage;
-
+        
         //By using the try catch block, we are firing the Calendar Validation trigger which passes in trigger.new to the Calendar handler
         try{
-        insert testEvent2;
+            insert testEvent2;
         } catch (DmlException e){
-        errorMessage = e.getDmlMessage(0);
+            errorMessage = e.getDmlMessage(0);
         }
         Test.stopTest();
         
@@ -38,32 +38,32 @@ private class CalendarValidationTest {
     @isTest
     static void CalendarDateCheckTestNegative() {
         DateTime Tomorrow = Date.Today().adddays(1);
-
+        
         // Create event number 1
         Event testEvent1 = new Event(
             Subject = 'Test Event 1',
-            StartDateTime = Tomorrow,
-            EndDateTime = Tomorrow,
-            OwnerId = '005aj000004nGNtAAM'
-        );
+        StartDateTime = Tomorrow,
+        EndDateTime = Tomorrow,
+        OwnerId = '005aj000004nGNtAAM'
+            );
         insert testEvent1;
-
+        
         Test.startTest();
         //Create second event with different start time
         Event testEvent2 = new Event(
             Subject = 'Test Event 2',
-            StartDateTime = Date.Today(),
-            EndDateTime = Date.Today(),
-            OwnerId = '005aj000004nGNtAAM'
-        );
-
+        StartDateTime = Date.Today(),
+        EndDateTime = Date.Today(),
+        OwnerId = '005aj000004nGNtAAM'
+            );
+        
         String errorMessage;
-
+        
         //By using the try catch block, we are firing the Calendar Validation trigger which passes in trigger.new to the Calendar handler again
         try{
-        insert testEvent2;
+            insert testEvent2;
         } catch (DmlException e){
-        errorMessage = e.getDmlMessage(0);
+            errorMessage = e.getDmlMessage(0);
         }
         Test.stopTest();
         
@@ -71,5 +71,3 @@ private class CalendarValidationTest {
         Assert.areNotEqual('Make sure that Events do not start at the same time', errorMessage);
     }
 }
-
-
