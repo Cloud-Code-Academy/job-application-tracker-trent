@@ -1,7 +1,7 @@
 public with sharing class JoobleJobBoardCallout {
 
 //Callout to Jooble - Post Method Tested with Postman
-public Static Void getJobBoardListings(){
+public Static HttpResponse getJobBoardListings(){
     
     HttpRequest request = new HttpRequest();
     request.setEndpoint('https://jooble.org/api/87d95f26-ffbb-4223-acb3-ae3ac5149922');
@@ -21,6 +21,7 @@ public Static Void getJobBoardListings(){
         Job_Application__c jA = createJobAppFromJson(response.getBody());
         system.debug(jA);
 }
+return response;
 }
     //Deserialize Json and parse it
     private static Job_Application__c createJobAppFromJson(String jsonResponse) {
