@@ -1,0 +1,75 @@
+<template>  
+    <lightning-card title="Take Home Pay Calculator">
+        <lightning-button 
+            variant="brand" 
+            label="Calculate" 
+            title="Calculate" 
+            slot="actions" 
+            onclick={calculateTakeHomePay}
+        ></lightning-button>
+        <div class="slds-var-p-horizontal_small">
+            <lightning-input
+                type="number"
+                name="Salary"
+                label="Salary"
+                value={SalaryValue}
+                onchange={handleSalaryChange}
+            ></lightning-input>
+            <lightning-combobox
+                name="Pay Frequency"
+                label="Pay Frequency"
+                value={selectedOption}
+                placeholder="Select Pay Frequency"
+                options={options}
+                onchange={handleChange}
+            ></lightning-combobox>
+            <lightning-radio-group 
+                name="radioGroup"
+                label="Marital Status"
+                options={radioOptions}
+                value={value}
+                type="radio"
+                onchange={handleRadioChange}
+            ></lightning-radio-group>
+            <div style="margin-bottom: 20px;"></div>
+            <div style="border: 1px solid green">
+            <!-- Federal Income Tax -->
+            <div class="slds-text-align_center">
+                <label for="FederalIncomeTax" style="font-weight: bold; font-size: 14px;">Federal Income Tax: </label>
+                <lightning-formatted-number 
+                    value={FedaralIncomeTaxValue}
+                    id="FederalIncomeTax"
+                ></lightning-formatted-number>
+            </div>
+
+            <!-- Social Security -->
+            <div class="slds-text-align_center">
+                <label for="SocialSecurity" style="font-weight: bold; font-size: 14px;">Social Security: </label>
+                <lightning-formatted-number 
+                    value={SocialSecurityValue}
+                    id="SocialSecurity"
+                ></lightning-formatted-number>
+            </div>
+
+            <!-- Medicare -->
+            <div class="slds-text-align_center">
+                <label for="Medicare" style="font-weight: bold; font-size: 14px;">Medicare: </label>
+                <lightning-formatted-number 
+                    value={MedicareValue}
+                    id="Medicare"
+                ></lightning-formatted-number>
+            </div>
+
+            <!-- Take Home Amount -->
+            <div class="slds-text-align_center">
+                <label for="TakeHomePay" style="font-weight: bold; font-size: 18px; color: red;">Take Home Amount: </label>
+                <lightning-formatted-number 
+                    value={netTakeHomePayAmount}
+                    id="TakeHomePay"
+                    style="font-weight: bold; font-size: 18px; color: blue;"
+                ></lightning-formatted-number>
+            </div>
+        </div>
+    </div>
+    </lightning-card>
+</template> 
